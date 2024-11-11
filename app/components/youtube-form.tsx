@@ -17,6 +17,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { sanitizeYoutubeURL } from "~/lib/utils";
 import { useState } from "react";
+import { ArrowUp } from "lucide-react";
 
 const FormSchema = z.object({
   videoUrl: z.string().min(28, {
@@ -53,7 +54,7 @@ export function YoutubeForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full space-y-4 flex flex-col"
+        className="w-full space-y-4 flex flex-row gap-2 items-center"
       >
         <FormField
           control={form.control}
@@ -61,18 +62,24 @@ export function YoutubeForm({
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel>YouTube Short Video URL</FormLabel>
-              <FormControl>
-                <Input placeholder={demoURL} {...field} />
-              </FormControl>
-              <FormDescription>
+              <div className="flex flex-row gap-2">
+                <FormControl>
+                  <Input placeholder={demoURL} {...field} />
+                </FormControl>
+                <Button type="submit" size="icon">
+                  <ArrowUp className="size-6" />
+                </Button>
+              </div>
+              {/* <FormDescription>
                 The URL of the YouTube Short video you want to convert.
-              </FormDescription>
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="flex flex-row gap-2 w-full">
-          <Button
+
+        {/* <div className="flex md:flex-row flex-col gap-4 w-full"> */}
+        {/* <Button
             className="w-full"
             type="button"
             variant="outline"
@@ -83,11 +90,9 @@ export function YoutubeForm({
             }
           >
             Demo
-          </Button>
-          <Button className="w-full" type="submit">
-            Submit
-          </Button>
-        </div>
+          </Button> */}
+
+        {/* </div> */}
       </form>
     </Form>
   );

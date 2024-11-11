@@ -9,6 +9,8 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 import { Toaster } from "sonner";
+import { APP_NAME } from "./lib/config";
+import Container from "./components/container";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -34,8 +36,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <header>
+          <Container className="bg-background max-w-none">
+            <h1>{APP_NAME}</h1>
+          </Container>
+        </header>
         {children}
-        <Toaster />
+        <Toaster position="top-right" />
         <ScrollRestoration />
         <Scripts />
       </body>

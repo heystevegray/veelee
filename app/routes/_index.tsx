@@ -1,7 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Button } from "~/components/ui/button";
+import ActionsToolbar from "~/components/actions-toolbar";
+import Container from "~/components/container";
 import { YoutubeForm } from "~/components/youtube-form";
 
 export const meta: MetaFunction = () => {
@@ -28,25 +29,27 @@ export default function Index() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col items-center gap-8">
-        <h1 className="leading text-2xl font-bold">VLINK</h1>
-        <YoutubeForm handleSubmit={handleSubmit} />
+    <div className="flex h-screen justify-center">
+      <Container className="flex flex-col gap-8 pt-8 md:pt-24">
         {/* Preview youtube video */}
-        {videoUrl && (
-          <div className="flex flex-col items-center gap-4">
+        {videoUrl ? (
+          <div className="flex flex-col gap-4">
             <h2 className="text-xl font-bold">Preview</h2>
             <iframe
-              // width="560"
-              // height="315"
+              className="aspect-video"
               src={videoUrl.replace("watch?v=", "embed/")}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           </div>
+        ) : (
+          <p className="text-center">Add a url to see a preview.</p>
         )}
-      </div>
+      </Container>
+      <ActionsToolbar>
+        <YoutubeForm handleSubmit={handleSubmit} />
+      </ActionsToolbar>
     </div>
   );
 }
