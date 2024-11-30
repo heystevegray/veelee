@@ -23,3 +23,12 @@ export const sanitizeYoutubeURL = (videoUrl: string) => {
 
   return videoUrl;
 };
+
+export const sanitizeDropboxURL = (videoUrl: string) => {
+  // https://www.dropbox.com/scl/fi/vbzkm68k0td7wk3u5vsbl/hello.mp4
+  if (videoUrl.includes("dropbox.com")) {
+    return videoUrl.replace("www.dropbox.com", "dl.dropboxusercontent.com");
+  }
+
+  return videoUrl;
+};

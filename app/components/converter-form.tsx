@@ -8,29 +8,23 @@ import { Button } from "~/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { sanitizeYoutubeURL } from "~/lib/utils";
+import { sanitizeDropboxURL, sanitizeYoutubeURL } from "~/lib/utils";
 import { useState } from "react";
 import { ArrowUp } from "lucide-react";
+import { ConverterFormProps } from "~/lib/types";
 
 const FormSchema = z.object({
-  videoUrl: z.string().min(28, {
-    message: "URL must be at least 28 characters.",
-  }),
+  videoUrl: z.string(),
 });
 
-export function YoutubeForm({
-  handleSubmit,
-}: {
-  handleSubmit: (videoUrl: string) => void;
-}) {
-  const [demoURL] = useState("https://www.youtube.com/shorts/RbQhjyJFPCo");
+export function ConverterForm({ converter, handleSubmit }: ConverterFormProps) {
+  const [demoURL] = useState(converter.placeholder);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -40,10 +34,14 @@ export function YoutubeForm({
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const sanitizedUrl = sanitizeYoutubeURL(data.videoUrl);
-    // toast("You submitted the following values:", {
-    //   description: JSON.stringify(sanitizedUrl, null, 2),
-    // });
+    let sanitizedUrl = data.videoUrl;
+
+    if (converter.href === "youtube") {
+      sanitizedUrl = sanitizeYoutubeURL(data.videoUrl);
+    }
+    if (converter.href === "dropbox") {
+      sanitizedUrl = sanitizeDropboxURL(data.videoUrl);
+    }
 
     console.log({ sanitizedUrl });
 
@@ -61,7 +59,7 @@ export function YoutubeForm({
           name="videoUrl"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>YouTube Short Video URL</FormLabel>
+              <FormLabel>{converter.title} Video URL</FormLabel>
               <div className="flex flex-row gap-2">
                 <FormControl>
                   <Input placeholder={demoURL} {...field} />

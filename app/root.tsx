@@ -1,6 +1,7 @@
 import styles from "./tailwind.css?url";
 
 import {
+  Link,
   Links,
   Meta,
   Outlet,
@@ -38,7 +39,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <header>
           <Container className="bg-background max-w-none">
-            <h1>{APP_NAME}</h1>
+            <Link to="/">
+              <h1>{APP_NAME}</h1>
+            </Link>
           </Container>
         </header>
         {children}

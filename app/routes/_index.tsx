@@ -1,55 +1,57 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState } from "react";
-import { toast } from "sonner";
-import ActionsToolbar from "~/components/actions-toolbar";
 import Container from "~/components/container";
-import { YoutubeForm } from "~/components/youtube-form";
+import Converters from "~/components/converters";
+import { APP_DESCRIPTION, APP_NAME } from "~/lib/config";
+import { Converter } from "~/lib/types";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: APP_NAME },
+    { name: "description", content: APP_DESCRIPTION },
   ];
 };
 
-export default function Index() {
-  const [videoUrl, setVideoUrl] = useState("");
-  const handleSubmit = async (videoUrl: string) => {
-    console.log({ videoUrl });
-    setVideoUrl(videoUrl);
-    // copy text to clipboard
-    try {
-      await navigator.clipboard.writeText(videoUrl);
-      toast.success("Copied this URL to your clipboard", {
-        description: videoUrl,
-      });
-    } catch (error) {
-      toast.error("Failed to copy to clipboard");
-    }
-  };
+export const converters: Converter[] = [
+  {
+    href: "dropbox",
+    title: "Dropbox",
+    placeholder:
+      "https://www.dropbox.com/scl/fi/vbzkm68k0td7wk3u5vsbl/hello.mp4",
+    icon: (
+      <svg
+        className="fill-foreground size-8"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title>Dropbox</title>
+        <path d="M6 1.807L0 5.629l6 3.822 6.001-3.822L6 1.807zM18 1.807l-6 3.822 6 3.822 6-3.822-6-3.822zM0 13.274l6 3.822 6.001-3.822L6 9.452l-6 3.822zM18 9.452l-6 3.822 6 3.822 6-3.822-6-3.822zM6 18.371l6.001 3.822 6-3.822-6-3.822L6 18.371z" />
+      </svg>
+    ),
+  },
+  {
+    href: "youtube",
+    title: "YouTube",
+    placeholder: "https://www.youtube.com/watch?v=RbQhjyJFPCo",
+    icon: (
+      <svg
+        className="fill-foreground size-8"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title>YouTube</title>
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+      </svg>
+    ),
+  },
+];
 
+export default function Index() {
   return (
     <div className="flex h-screen justify-center">
       <Container className="flex flex-col gap-8 pt-8 md:pt-24">
-        {/* Preview youtube video */}
-        {videoUrl ? (
-          <div className="flex flex-col gap-4">
-            <h2 className="text-xl font-bold">Preview</h2>
-            <iframe
-              className="aspect-video"
-              src={videoUrl.replace("watch?v=", "embed/")}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        ) : (
-          <p className="text-center">Add a url to see a preview.</p>
-        )}
+        <p>Choose a converter</p>
+        <Converters />
       </Container>
-      <ActionsToolbar>
-        <YoutubeForm handleSubmit={handleSubmit} />
-      </ActionsToolbar>
     </div>
   );
 }
