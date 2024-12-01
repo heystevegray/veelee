@@ -1,71 +1,67 @@
-"use client";
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
-import { Button } from "~/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
-import { sanitizeDropboxURL, sanitizeYoutubeURL } from "~/lib/utils";
-import { useState } from "react";
-import { ArrowUp } from "lucide-react";
-import { ConverterFormProps } from "~/lib/types";
+import { Button } from '~/components/ui/button'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '~/components/ui/form'
+import { Input } from '~/components/ui/input'
+import { sanitizeDropboxURL, sanitizeYoutubeURL } from '~/lib/utils'
+import { useState } from 'react'
+import { ArrowUp } from 'lucide-react'
+import { ConverterFormProps } from '~/lib/types'
+import { toast } from 'sonner'
 
 const FormSchema = z.object({
   videoUrl: z.string(),
-});
+})
 
 export function ConverterForm({ converter, handleSubmit }: ConverterFormProps) {
-  const [demoURL] = useState(converter.placeholder);
+  const [demoURL] = useState(converter.placeholder)
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      videoUrl: "",
+      videoUrl: '',
     },
-  });
+  })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    let sanitizedUrl = data.videoUrl;
+    let sanitizedUrl = data.videoUrl
 
-    if (converter.href === "youtube") {
-      sanitizedUrl = sanitizeYoutubeURL(data.videoUrl);
-    }
-    if (converter.href === "dropbox") {
-      sanitizedUrl = sanitizeDropboxURL(data.videoUrl);
+    if (!sanitizedUrl) {
+      toast.error('Please enter a valid URL')
+      return
     }
 
-    console.log({ sanitizedUrl });
+    if (converter.href === 'youtube') {
+      sanitizedUrl = sanitizeYoutubeURL(data.videoUrl)
+    }
+    if (converter.href === 'dropbox') {
+      sanitizedUrl = sanitizeDropboxURL(data.videoUrl)
+    }
 
-    handleSubmit(sanitizedUrl);
+    console.log({ sanitizedUrl })
+
+    handleSubmit(sanitizedUrl)
   }
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full space-y-4 flex flex-row gap-2 items-center"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className='w-full space-y-4 flex flex-row gap-2 items-center'>
         <FormField
           control={form.control}
-          name="videoUrl"
+          name='videoUrl'
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className='w-full'>
               <FormLabel>{converter.title} Video URL</FormLabel>
-              <div className="flex flex-row gap-2">
+              <div className='flex flex-row gap-2'>
                 <FormControl>
                   <Input placeholder={demoURL} {...field} />
                 </FormControl>
-                <Button type="submit" size="icon">
-                  <ArrowUp className="size-6" />
+                <Button type='submit' size='icon'>
+                  <ArrowUp className='size-6' />
                 </Button>
               </div>
               {/* <FormDescription>
@@ -93,5 +89,5 @@ export function ConverterForm({ converter, handleSubmit }: ConverterFormProps) {
         {/* </div> */}
       </form>
     </Form>
-  );
+  )
 }
