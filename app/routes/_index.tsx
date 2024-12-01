@@ -13,6 +13,7 @@ export const converters: Converter[] = [
   {
     href: 'dropbox',
     title: 'Dropbox',
+    description: 'Convert Dropbox shared links to serve user content directly.',
     placeholder: 'https://www.dropbox.com/scl/fi/vbzkm68k0td7wk3u5vsbl/hello.mp4',
     icon: (
       <svg className='fill-foreground size-8' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
@@ -22,8 +23,9 @@ export const converters: Converter[] = [
     ),
   },
   {
-    href: 'youtube',
-    title: 'YouTube',
+    href: 'youtube-short',
+    title: 'YouTube Short',
+    description: 'Convert YouTube Shorts to their Youtube Video links.',
     placeholder: 'https://www.youtube.com/shorts/SXHMnicI6Pg',
     icon: (
       <svg className='fill-foreground size-8' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>

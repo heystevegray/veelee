@@ -47,7 +47,7 @@ const Converter = () => {
           </div>
         ) : (
           // <h2 className='text-center text-3xl'></h2>
-          <HeaderSection icon={converter.icon} title={converter.title} description={`Add a ${converter.title} URL below to get started.`} />
+          <HeaderSection icon={converter.icon} title={converter.title} description={`${converter.description}`} />
         )}
       </Container>
       <ActionsToolbar>
