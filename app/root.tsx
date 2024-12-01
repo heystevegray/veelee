@@ -1,4 +1,4 @@
-import styles from './tailwind.css?url'
+import styles from './globals.css?url'
 
 import { Link, Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import type { LinksFunction } from '@remix-run/node'
@@ -9,6 +9,9 @@ import Container from './components/container'
 import packageJson from '../package.json'
 import { TailwindIndicator } from './components/tailwind-indicator'
 import { Analytics } from '@vercel/analytics/react'
+import Footer from './components/footer'
+import { ThemeProvider } from './components/theme-provider'
+import { ThemeToggle } from './components/theme-toggle'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: styles },
@@ -33,21 +36,33 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        <header>
-          <Container className='max-w-none flex flex-row gap-2 items-center justify-between border-b'>
-            <Link to='/'>
-              <h1 className='font-bold hover:underline'>{APP_NAME}</h1>
-            </Link>
-            <span className='text-sm'>v{packageJson.version}</span>
-          </Container>
-        </header>
-        {children}
-        <Toaster position='top-right' />
-        <Analytics />
-        <TailwindIndicator />
-        <ScrollRestoration />
-        <Scripts />
+      <body className='min-h-screen font-sans antialiased'>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+          <div className='relative flex min-h-screen w-full flex-col'>
+            <header className='sticky top-0 z-40 w-full border-b bg-background'>
+              <nav>
+                <div className='flex h-16 items-center space-x-4 px-3 sm:justify-between sm:space-x-0'>
+                  <Container className='max-w-none flex flex-row gap-2 items-center justify-between'>
+                    <div className='flex flex-row gap-2 items-center'>
+                      <Link to='/'>
+                        <h1 className='font-bold hover:underline'>{APP_NAME}</h1>
+                      </Link>
+                      <span className='text-sm'>v{packageJson.version}</span>
+                    </div>
+                    <ThemeToggle />
+                  </Container>
+                </div>
+              </nav>
+            </header>
+            <main className='flex-1'>{children}</main>
+            <Footer />
+          </div>
+          <Toaster position='top-right' />
+          <Analytics />
+          <TailwindIndicator />
+          <ScrollRestoration />
+          <Scripts />
+        </ThemeProvider>
       </body>
     </html>
   )

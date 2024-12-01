@@ -35,7 +35,7 @@ export function ConverterForm({ converter, handleSubmit }: ConverterFormProps) {
       return
     }
 
-    if (converter.href === 'youtube') {
+    if (converter.href === 'youtube-short') {
       sanitizedUrl = sanitizeYoutubeURL(data.videoUrl)
     }
     if (converter.href === 'dropbox') {
@@ -58,6 +58,7 @@ export function ConverterForm({ converter, handleSubmit }: ConverterFormProps) {
               <FormLabel>{converter.title} Video URL</FormLabel>
               <div className='flex flex-row gap-2'>
                 <FormControl>
+                  {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
                   <Input placeholder={demoURL} {...field} autoFocus />
                 </FormControl>
                 <Button type='submit' size='icon'>

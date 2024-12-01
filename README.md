@@ -1,41 +1,23 @@
-# Welcome to Remix!
+## Dropbox
 
-- 📖 [Remix docs](https://remix.run/docs)
+Convert Dropbox shared links to serve user content directly.
 
-## Development
+### Bad
 
-Run the dev server:
+https://`www.dropbox.com`/scl/fi/vbzkm68k0td7wk3u5vsbl/hello.mp4
 
-```shellscript
-npm run dev
-```
+### Good
 
-## Deployment
+https://`dl.dropboxusercontent.com`/scl/fi/vbzkm68k0td7wk3u5vsbl/hello.mp4
 
-First, build your app for production:
+### YouTube Shorts
 
-```sh
-npm run build
-```
+Convert YouTube Shorts to their Youtube Video links.
 
-Then run the app in production mode:
+### Bad
 
-```sh
-npm start
-```
+https://`youtube.com/shorts`/wk-SVfVuBng?si=EU25yaBDiBdD0Ul8
 
-Now you'll need to pick a host to deploy it to.
+### Good
 
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
-# veelee
+https://`www.youtube.com/watch?v=`wk-SVfVuBng

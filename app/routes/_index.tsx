@@ -38,12 +38,9 @@ export const converters: Converter[] = [
 
 export default function Index() {
   return (
-    <div className='flex h-screen justify-center'>
-      <Container className='flex flex-col gap-8 pt-8 md:pt-24 items-center'>
-        {/* <h2 className='text-3xl text-center'></h2> */}
-        <HeaderSection title='Choose a converter' description='Select a converter below to get started.' />
-        <Converters />
-      </Container>
-    </div>
+    <Container className='flex flex-col gap-8 pt-8 md:pt-24'>
+      <HeaderSection title='Choose a converter' description='Select a converter below to get started.' />
+      <Converters />
+    </Container>
   )
 }
