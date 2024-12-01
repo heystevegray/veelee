@@ -58,7 +58,7 @@ export function ConverterForm({ converter, handleSubmit }: ConverterFormProps) {
               <FormLabel>{converter.title} Video URL</FormLabel>
               <div className='flex flex-row gap-2'>
                 <FormControl>
-                  <Input placeholder={demoURL} {...field} />
+                  <Input placeholder={demoURL} {...field} autoFocus />
                 </FormControl>
                 <Button type='submit' size='icon'>
                   <ArrowUp className='size-6' />

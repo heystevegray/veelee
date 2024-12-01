@@ -24,7 +24,7 @@ export const converters: Converter[] = [
   {
     href: 'youtube',
     title: 'YouTube',
-    placeholder: 'https://www.youtube.com/watch?v=RbQhjyJFPCo',
+    placeholder: 'https://www.youtube.com/shorts/SXHMnicI6Pg',
     icon: (
       <svg className='fill-foreground size-8' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
         <title>YouTube</title>
