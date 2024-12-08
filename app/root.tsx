@@ -3,7 +3,7 @@ import styles from './globals.css?url'
 import { Link, Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import type { LinksFunction } from '@remix-run/node'
 import { Toaster } from 'sonner'
-import { APP_NAME } from './lib/config'
+import { siteConfig } from './lib/config'
 import Container from './components/container'
 
 import packageJson from '../package.json'
@@ -12,6 +12,9 @@ import { Analytics } from '@vercel/analytics/react'
 import Footer from './components/footer'
 import { ThemeProvider } from './components/theme-provider'
 import { ThemeToggle } from './components/theme-toggle'
+import { buttonVariants } from './components/ui/button'
+import { cn } from './lib/utils'
+import { Icons } from './components/icons'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: styles },
@@ -45,11 +48,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <Container className='max-w-none flex flex-row gap-2 items-center justify-between'>
                     <div className='flex flex-row gap-2 items-center'>
                       <Link to='/'>
-                        <h1 className='font-bold hover:underline'>{APP_NAME}</h1>
+                        <h1 className='font-bold hover:underline'>{siteConfig.name}</h1>
                       </Link>
                       <span className='text-sm'>v{packageJson.version}</span>
                     </div>
-                    <ThemeToggle />
+                    <div className='flex justify-end'>
+                      <Link to={siteConfig.links.github} target='_blank' rel='noreferrer'>
+                        <div
+                          className={cn(
+                            'rounded-full',
+                            buttonVariants({
+                              size: 'icon',
+                              variant: 'ghost',
+                            })
+                          )}
+                        >
+                          <Icons.gitHub className='size-5' />
+                          <span className='sr-only'>GitHub</span>
+                        </div>
+                      </Link>
+                      <ThemeToggle />
+                    </div>
                   </Container>
                 </div>
               </nav>

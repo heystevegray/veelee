@@ -2,11 +2,11 @@ import type { MetaFunction } from '@remix-run/node'
 import Container from '~/components/container'
 import Converters from '~/components/converters'
 import HeaderSection from '~/components/header-section'
-import { APP_DESCRIPTION, APP_NAME } from '~/lib/config'
+import { siteConfig } from '~/lib/config'
 import { Converter } from '~/lib/types'
 
 export const meta: MetaFunction = () => {
-  return [{ title: APP_NAME }, { name: 'description', content: APP_DESCRIPTION }]
+  return [{ title: siteConfig.name }, { name: 'description', content: siteConfig.description }]
 }
 
 export const converters: Converter[] = [
