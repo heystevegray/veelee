@@ -3,6 +3,16 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
+  // Dokploy: https://docs.dokploy.com/docs/core/troubleshooting#common-solution-for-modern-javascript-frameworks
+  preview: {
+    port: 3000,
+    host: true, // This enables listening on all network interfaces
+  },
+  server: {
+    // Also add this for development server
+    host: true, // This enables listening on all network interfaces
+    port: 3000,
+  },
   plugins: [
     remix({
       ssr: false,
@@ -12,6 +22,7 @@ export default defineConfig({
         v3_throwAbortReason: true,
       },
     }),
+
     tsconfigPaths(),
   ],
 })
