@@ -38,6 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <Meta />
         <Links />
+        <script defer src='https://umami.stevegray.io/script.js' data-website-id='3d10b871-275b-4e84-aa06-20466e316c1b'></script>
       </head>
       <body className='min-h-screen font-sans antialiased'>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
