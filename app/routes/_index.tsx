@@ -3,7 +3,7 @@ import Container from '~/components/container'
 import Converters from '~/components/converters'
 import HeaderSection from '~/components/header-section'
 import { siteConfig } from '~/lib/config'
-import { Converter } from '~/lib/types'
+import type { Converter } from '~/lib/types'
 
 export const meta: MetaFunction = () => {
   return [{ title: siteConfig.name }, { name: 'description', content: siteConfig.description }]
